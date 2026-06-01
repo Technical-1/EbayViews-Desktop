@@ -70,10 +70,11 @@ class SellerItemFetcher:
             url = urljoin(base_url, href.split("?")[0])
             title = normalize_text(link.get_text(" "))
             container = link.find_parent(["li", "div", "article"]) or link.parent
-            if not title and container is not None:
+            generic_titles = {"shop now", "view item", "details"}
+            if (not title or title.lower() in generic_titles) and container is not None:
                 title = extract_title(container)
             price = extract_price(container) if container is not None else ""
-            if not title or title.lower() in {"shop now", "view item", "details"}:
+            if not title or title.lower() in generic_titles:
                 title = f"eBay item {item_id}"
             items[item_id] = SellerItem(item_id=item_id, title=title, price=price, url=url)
         return list(items.values())

@@ -37,6 +37,9 @@ Settings are stored at `~/.ebayviews/config.json`.
 ```bash
 pip install -r requirements-dev.txt
 pytest
+
+# Optional live check against the public seller URL used for integration testing
+EBAYVIEWS_LIVE_TESTS=1 pytest tests/test_live_ebay.py -q
 ```
 
 ## Project Structure
