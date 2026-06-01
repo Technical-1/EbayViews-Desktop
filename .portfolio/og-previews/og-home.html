@@ -3,289 +3,421 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1200, height=630, initial-scale=1">
-  <title>EbayViews Desktop OG Preview</title>
+  <title>EbayViews Desktop Portfolio Preview</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-0: #06101e;
-      --bg-1: #0c2140;
-      --bg-2: #102a4d;
-      --blue: #3b82f6;
-      --blue-soft: #93c5fd;
-      --green: #22c55e;
-      --green-soft: #86efac;
-      --amber: #facc15;
-      --text: #f8fbff;
-      --muted: #c8d9f3;
-      --panel: rgba(7, 18, 34, 0.78);
+      --ink: #f8fbff;
+      --muted: #bdd4f4;
+      --dim: #88a8d8;
+      --panel: rgba(8, 19, 36, 0.82);
+      --panel-2: rgba(14, 31, 57, 0.88);
+      --line: rgba(255, 255, 255, 0.14);
+      --blue: #60a5fa;
+      --blue-2: #2563eb;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #fb7185;
     }
 
     body {
       width: 1200px;
       height: 630px;
       overflow: hidden;
-      background: var(--bg-0);
-      color: var(--text);
+      color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #06111f;
     }
 
-    .og-card {
+    .card {
       position: relative;
       width: 1200px;
       height: 630px;
       overflow: hidden;
       background:
-        radial-gradient(circle at 18% 18%, rgba(59, 130, 246, 0.62), transparent 32%),
-        radial-gradient(circle at 84% 72%, rgba(34, 197, 94, 0.34), transparent 31%),
-        radial-gradient(circle at 82% 10%, rgba(250, 204, 21, 0.16), transparent 23%),
-        linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 46%, #07101c 100%);
-      isolation: isolate;
+        radial-gradient(circle at 16% 22%, rgba(37, 99, 235, 0.58), transparent 30%),
+        radial-gradient(circle at 82% 14%, rgba(52, 211, 153, 0.24), transparent 28%),
+        radial-gradient(circle at 76% 82%, rgba(251, 191, 36, 0.18), transparent 25%),
+        linear-gradient(135deg, #06111f 0%, #0b2447 48%, #08111f 100%);
     }
 
     .grid {
       position: absolute;
       inset: -80px;
-      opacity: 0.22;
+      opacity: 0.18;
       background-image:
-        linear-gradient(rgba(255,255,255,0.16) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.16) 1px, transparent 1px);
-      background-size: 42px 42px;
-      transform: rotate(-4deg) scale(1.08);
+        linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px);
+      background-size: 40px 40px;
+      transform: rotate(-5deg) scale(1.12);
     }
 
-    .noise {
+    .halo {
       position: absolute;
-      inset: 0;
-      opacity: 0.16;
-      background-image: radial-gradient(rgba(255,255,255,0.4) 0.8px, transparent 0.8px);
-      background-size: 7px 7px;
-      mix-blend-mode: overlay;
-    }
-
-    .ring {
-      position: absolute;
-      border: 2px solid rgba(147, 197, 253, 0.22);
       border-radius: 999px;
-      transform: rotate(-18deg);
+      filter: blur(4px);
+      opacity: 0.82;
     }
 
-    .ring.one { width: 580px; height: 280px; right: -102px; top: 40px; }
-    .ring.two { width: 510px; height: 218px; right: 16px; top: 214px; border-color: rgba(134, 239, 172, 0.22); }
-    .ring.three { width: 430px; height: 166px; right: 136px; top: 396px; border-color: rgba(250, 204, 21, 0.18); }
+    .halo.one { width: 520px; height: 520px; left: -180px; top: -165px; border: 1px solid rgba(96,165,250,0.28); }
+    .halo.two { width: 620px; height: 620px; right: -260px; bottom: -260px; border: 1px solid rgba(52,211,153,0.22); }
 
-    .node {
+    .copy {
       position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--blue);
-      box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.12), 0 0 36px rgba(59, 130, 246, 0.76);
+      left: 64px;
+      top: 64px;
+      width: 456px;
+      z-index: 5;
     }
 
-    .node.green { background: var(--green); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0.12), 0 0 36px rgba(34, 197, 94, 0.72); }
-    .node.amber { background: var(--amber); box-shadow: 0 0 0 10px rgba(250, 204, 21, 0.12), 0 0 36px rgba(250, 204, 21, 0.52); }
-    .n1 { right: 337px; top: 170px; }
-    .n2 { right: 206px; top: 258px; }
-    .n3 { right: 98px; top: 372px; }
-    .n4 { right: 282px; top: 468px; }
-
-    .content {
-      position: absolute;
-      z-index: 2;
-      left: 72px;
-      top: 124px;
-      width: 675px;
-    }
-
-    .eyebrow {
+    .badge {
       display: inline-flex;
-      align-items: center;
       gap: 10px;
-      margin-bottom: 24px;
-      padding: 10px 16px;
-      border: 1px solid rgba(255,255,255,0.16);
+      align-items: center;
+      padding: 10px 15px;
+      border: 1px solid var(--line);
       border-radius: 999px;
       background: rgba(255,255,255,0.08);
-      color: var(--blue-soft);
-      font-size: 20px;
-      font-weight: 760;
-      letter-spacing: 0.01em;
-      backdrop-filter: blur(12px);
+      color: #cfe4ff;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
     }
 
-    .pulse {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+    .badge-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
       background: var(--green);
-      box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+      box-shadow: 0 0 22px rgba(52,211,153,0.9);
     }
 
     h1 {
-      font-size: 92px;
-      line-height: 0.9;
+      margin-top: 24px;
+      font-size: 78px;
+      line-height: 0.91;
       letter-spacing: -0.074em;
-      font-weight: 900;
-      text-wrap: balance;
+      font-weight: 950;
     }
 
-    .tagline {
-      margin-top: 28px;
-      max-width: 660px;
+    .subtitle {
+      margin-top: 24px;
       color: var(--muted);
-      font-size: 31px;
-      line-height: 1.2;
-      font-weight: 680;
+      font-size: 27px;
+      line-height: 1.22;
+      font-weight: 700;
+      letter-spacing: -0.025em;
     }
 
-    .pills {
+    .chips {
       display: flex;
-      gap: 14px;
-      margin-top: 44px;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
     }
 
-    .pill {
+    .chip {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 13px 18px;
-      border: 1px solid rgba(255,255,255,0.14);
+      gap: 9px;
+      padding: 12px 15px;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 15px;
+      background: rgba(255,255,255,0.10);
+      color: #ecf5ff;
+      font-size: 18px;
+      font-weight: 850;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.13);
+    }
+
+    .chip i {
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.11);
-      color: #eef6ff;
-      font-size: 20px;
-      font-weight: 800;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      background: var(--blue);
     }
 
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); }
-    .dot.green { background: var(--green); }
-    .dot.amber { background: var(--amber); }
+    .chip:nth-child(2) i { background: var(--green); }
+    .chip:nth-child(3) i { background: var(--amber); }
 
-    .panel {
+    .url {
       position: absolute;
-      z-index: 3;
-      right: 64px;
-      top: 92px;
-      width: 418px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 30px;
-      background: var(--panel);
-      box-shadow: 0 36px 120px rgba(0,0,0,0.46), inset 0 1px 0 rgba(255,255,255,0.12);
-      backdrop-filter: blur(20px);
+      left: 64px;
+      bottom: 42px;
+      z-index: 5;
+      color: #a6c8ff;
+      font: 21px ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      letter-spacing: -0.03em;
     }
 
-    .panel-top {
+    .app-window {
+      position: absolute;
+      right: 54px;
+      top: 58px;
+      z-index: 4;
+      width: 640px;
+      height: 520px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 32px;
+      background: var(--panel);
+      box-shadow:
+        0 36px 110px rgba(0,0,0,0.46),
+        inset 0 1px 0 rgba(255,255,255,0.16);
+      backdrop-filter: blur(22px);
+    }
+
+    .titlebar {
+      height: 58px;
       display: flex;
       align-items: center;
       gap: 10px;
-      height: 58px;
-      padding: 0 24px;
-      background: rgba(255,255,255,0.12);
+      padding: 0 22px;
+      background: rgba(255,255,255,0.11);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
     }
 
-    .traffic { width: 13px; height: 13px; border-radius: 50%; }
-    .red { background: #ef4444; }
-    .yellow { background: #facc15; }
-    .green-light { background: #22c55e; }
-
-    .terminal {
-      padding: 25px 28px 30px;
-      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-      font-size: 20px;
-      line-height: 1.72;
+    .traffic { width: 13px; height: 13px; border-radius: 999px; }
+    .traffic.red { background: #fb7185; }
+    .traffic.yellow { background: #fbbf24; }
+    .traffic.green { background: #34d399; }
+    .titlebar span.title {
+      margin-left: 12px;
       color: #dbeafe;
+      font-weight: 850;
+      font-size: 18px;
     }
 
-    .terminal .verb { color: var(--blue-soft); font-weight: 900; }
-    .terminal .ok { color: var(--green-soft); font-weight: 900; }
-    .terminal .muted { color: #9fb8dd; }
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 118px 104px;
+      gap: 12px;
+      padding: 20px 22px 16px;
+    }
 
-    .mini-card {
-      position: absolute;
-      z-index: 2;
-      right: 76px;
-      bottom: 78px;
-      width: 318px;
-      height: 72px;
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 24px;
-      background: rgba(255,255,255,0.13);
-      color: #dbeafe;
-      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-      font-size: 19px;
+    .input, .button {
+      height: 44px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 18px 54px rgba(0,0,0,0.23);
+      font-weight: 800;
+      font-size: 16px;
     }
 
-    .mini-card.two {
-      right: 164px;
-      bottom: 30px;
-      width: 282px;
-      opacity: 0.74;
-    }
-
-    .footer {
-      position: absolute;
-      left: 72px;
-      bottom: 50px;
-      z-index: 2;
-      color: #9fc3fa;
+    .input {
+      padding: 0 16px;
+      color: #bad3f9;
+      background: rgba(3, 10, 24, 0.54);
+      border: 1px solid rgba(255,255,255,0.12);
       font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-      font-size: 21px;
-      letter-spacing: -0.02em;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .button {
+      justify-content: center;
+      color: white;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      box-shadow: 0 13px 28px rgba(37,99,235,0.34);
+    }
+
+    .button.settings {
+      background: rgba(255,255,255,0.11);
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,0.13);
+      color: #eaf4ff;
+    }
+
+    .main-area {
+      display: grid;
+      grid-template-columns: 402px 1fr;
+      gap: 16px;
+      padding: 0 22px 22px;
+    }
+
+    .table {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      background: rgba(3, 10, 24, 0.34);
+    }
+
+    .thead, .row {
+      display: grid;
+      grid-template-columns: 48px 1fr 76px;
+      align-items: center;
+    }
+
+    .thead {
+      height: 42px;
+      color: #93c5fd;
+      background: rgba(255,255,255,0.08);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cell { padding: 0 13px; }
+    .row {
+      height: 58px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #edf6ff;
+      font-size: 16px;
+      font-weight: 760;
+    }
+    .row .muted { display: block; margin-top: 4px; color: #89a8d4; font-size: 12px; font-weight: 780; }
+    .price { color: #a7f3d0; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-weight: 850; }
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #22c55e, #86efac);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.14);
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .settings-card, .log-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      background: rgba(3, 10, 24, 0.34);
+      overflow: hidden;
+    }
+
+    .settings-card { height: 178px; padding: 16px; }
+    .small-title {
+      color: #dbeafe;
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: #adc7ec;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .metric b { color: #f8fbff; font-size: 16px; }
+    .bar {
+      height: 8px;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+    }
+    .bar div { width: 64%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #2563eb, #34d399); }
+
+    .log-card { height: 202px; padding: 16px; }
+    .log-line {
+      margin-top: 10px;
+      color: #b8cff0;
+      font: 13px/1.2 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      white-space: nowrap;
+    }
+    .log-line strong { color: #86efac; }
+    .log-line .blue { color: #93c5fd; }
+    .log-line .amber { color: #fcd34d; }
+
+    .progress-float {
+      position: absolute;
+      right: 108px;
+      bottom: 32px;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 20px;
+      background: rgba(8, 19, 36, 0.82);
+      box-shadow: 0 20px 56px rgba(0,0,0,0.35);
+      backdrop-filter: blur(18px);
+      color: #edf6ff;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .spark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #2563eb, #34d399);
+      box-shadow: 0 16px 34px rgba(37,99,235,0.34);
+      font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
     }
   </style>
 </head>
 <body>
-  <main class="og-card">
+  <main class="card">
     <div class="grid"></div>
-    <div class="noise"></div>
-    <div class="ring one"></div>
-    <div class="ring two"></div>
-    <div class="ring three"></div>
-    <div class="node n1"></div>
-    <div class="node green n2"></div>
-    <div class="node n3"></div>
-    <div class="node amber n4"></div>
+    <div class="halo one"></div>
+    <div class="halo two"></div>
 
-    <section class="content">
-      <div class="eyebrow"><span class="pulse"></span>PyQt6 Desktop Automation Lab</div>
+    <section class="copy">
+      <div class="badge"><span class="badge-dot"></span>Native desktop workflow</div>
       <h1>EbayViews Desktop</h1>
-      <p class="tagline">Seller listing discovery, selectable request generation, settings, logging, and test coverage.</p>
-      <div class="pills">
-        <span class="pill"><span class="dot"></span>PyQt6</span>
-        <span class="pill"><span class="dot green"></span>BeautifulSoup</span>
-        <span class="pill"><span class="dot amber"></span>pytest</span>
+      <p class="subtitle">Fetch seller listings, select rows, tune concurrency, and watch request progress in real time.</p>
+      <div class="chips">
+        <div class="chip"><i></i>PyQt6 UI</div>
+        <div class="chip"><i></i>Seller parser</div>
+        <div class="chip"><i></i>Tested flows</div>
       </div>
     </section>
 
-    <aside class="panel">
-      <div class="panel-top">
-        <span class="traffic red"></span>
-        <span class="traffic yellow"></span>
-        <span class="traffic green-light"></span>
+    <section class="app-window">
+      <div class="titlebar">
+        <div class="traffic red"></div>
+        <div class="traffic yellow"></div>
+        <div class="traffic green"></div>
+        <span class="title">EbayViews Desktop</span>
       </div>
-      <div class="terminal">
-        <div><span class="verb">FETCH</span> seller listings</div>
-        <div><span class="ok">SELECT</span> item rows</div>
-        <div><span class="ok">POOL</span> concurrency=5</div>
-        <div><span class="verb">LOG</span> progress + errors</div>
-        <div><span class="muted">tests:</span> 34 passed</div>
+      <div class="toolbar">
+        <div class="input">https://ebay.us/m/5YVabM</div>
+        <div class="button">Fetch Items</div>
+        <div class="button settings">Settings</div>
       </div>
-    </aside>
+      <div class="main-area">
+        <div class="table">
+          <div class="thead"><div class="cell">Sel</div><div class="cell">Listing</div><div class="cell">Price</div></div>
+          <div class="row"><div class="cell"><div class="check"></div></div><div class="cell">Vintage Camera<span class="muted">Item ID 123456789012</span></div><div class="cell price">$42</div></div>
+          <div class="row"><div class="cell"><div class="check"></div></div><div class="cell">Film Lens<span class="muted">Item ID 234567890123</span></div><div class="cell price">$29</div></div>
+          <div class="row"><div class="cell"><div class="check"></div></div><div class="cell">Tripod Kit<span class="muted">Item ID 345678901234</span></div><div class="cell price">$18</div></div>
+          <div class="row"><div class="cell"><div class="check"></div></div><div class="cell">Light Meter<span class="muted">Item ID 456789012345</span></div><div class="cell price">$55</div></div>
+        </div>
+        <aside class="side">
+          <div class="settings-card">
+            <div class="small-title">Run Settings</div>
+            <div class="metric"><span>Concurrency</span><b>5</b></div>
+            <div class="metric"><span>Retries</span><b>2</b></div>
+            <div class="metric"><span>Interval</span><b>0.25s</b></div>
+            <div class="bar"><div></div></div>
+          </div>
+          <div class="log-card">
+            <div class="small-title">Live Log</div>
+            <div class="log-line"><span class="blue">FETCH</span> loaded 4 listings</div>
+            <div class="log-line"><strong>OK</strong> selected rows queued</div>
+            <div class="log-line"><span class="amber">POOL</span> workers capped at 5</div>
+            <div class="log-line"><strong>OK</strong> RequestResult success</div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-    <div class="mini-card"><span class="dot green"></span>RequestResult: success</div>
-    <div class="mini-card two"><span class="dot"></span>SellerItem parsed</div>
-
-    <div class="footer">github.com/Technical-1/EbayViews-Desktop</div>
+    <div class="progress-float"><div class="spark">34</div>tests passed + live parser check</div>
+    <div class="url">github.com/Technical-1/EbayViews-Desktop</div>
   </main>
 </body>
 </html>
